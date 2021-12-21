@@ -1,0 +1,24 @@
+version: '3'
+services:
+  go:
+    build: ./golang
+    ports:
+      - 1129:1129
+    tty: true
+    volumes:
+      - ./golang:/usr/src/app
+    working_dir: '/usr/src/app'
+    depends_on:
+      - db
+
+  db:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_DATABASE: dbname
+      MYSQL_ROOT_PASSWORD: root
+      TZ: "Asia/Tokyo"
+    volumes:
+      - .dbdata:/var/lib/mysql
+    ports:
+      - 33066:3306
