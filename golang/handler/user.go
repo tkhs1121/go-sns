@@ -6,12 +6,13 @@ import (
 	"github.com/gofiber/fiber/v2"
 
 	"github.com/tkhs1121/go-sns/service"
+	"github.com/tkhs1121/go-sns/util"
 )
 
 func Register(c *fiber.Ctx) error {
 	link := c.Query("link")
 
-	if err := AmazonLinkValidate(link); err != nil {
+	if err := util.AmazonLinkValidate(link); err != nil {
 		fmt.Println("Validation Error")
 
 		return err
@@ -25,7 +26,7 @@ func Register(c *fiber.Ctx) error {
 		return err
 	}
 
-	token, err := GenerateJwt(userID)
+	token, err := util.GenerateJwt(userID)
 
 	if err != nil {
 		fmt.Println("Generate jwt error")

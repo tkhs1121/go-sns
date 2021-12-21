@@ -5,10 +5,11 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/tkhs1121/go-sns/service"
+	"github.com/tkhs1121/go-sns/util"
 )
 
 func GetRandProfile(c *fiber.Ctx) error {
-	id, err := GetUserId(c)
+	id, err := util.GetUserId(c)
 
 	if err != nil {
 		return err
@@ -27,7 +28,7 @@ func GetRandProfile(c *fiber.Ctx) error {
 
 func UpdateRecommendation(c *fiber.Ctx) error {
 
-	id, err := GetUserId(c)
+	id, err := util.GetUserId(c)
 
 	if err != nil {
 		return err
@@ -35,7 +36,7 @@ func UpdateRecommendation(c *fiber.Ctx) error {
 
 	link := c.Query("link")
 
-	if err := AmazonLinkValidate(link); err != nil {
+	if err := util.AmazonLinkValidate(link); err != nil {
 		fmt.Println("Validation Error")
 
 		return err
